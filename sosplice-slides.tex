@@ -305,16 +305,33 @@
     node (sq) [right] {interface send queue, m\_nextpkt} ++(-.5,-.8)
     node (is) [right] {if\_start()} ++(0,-.8)
     node (ns) [right] {network driver start routine};
-\draw[->] (node cs:name=wr,anchor=west) ++(.3,-.3) -- ++(0,-.6);
-\draw[->] (node cs:name=ss,anchor=west) ++(.3,-.3) -- ++(0,-.5);
-\draw[->] (node cs:name=sb,anchor=west) ++(-1,0) -- ++(0,-.5);
-\draw[->] (node cs:name=to,anchor=west) ++(.3,-.3) -- ++(0,-.2);
-\draw[->] (node cs:name=io,anchor=west) ++(.3,-.3) -- ++(0,-.2);
-\draw[->] (node cs:name=eo,anchor=west) ++(.3,-.3) -- ++(0,-.5);
-\draw[->] (node cs:name=sq,anchor=west) ++(-.2,0) -- ++(0,-.5);
-\draw[->] (node cs:name=is,anchor=west) ++(.3,-.3) -- ++(0,-.2);
-\path (node cs:name=wr,anchor=west) ++(0,-.6) node (cs) {};
-\draw[thick] (cs -| 0,0) -- +(11,0) node (context) {};
+
+\path (node cs:name=wr,anchor=west) +(.3,-.3) coordinate (wro) {};
+\path (node cs:name=ss,anchor=west) +(.3,.3) coordinate (ssi) {};
+\draw[->] (wro) -- (ssi);
+\path (node cs:name=ss,anchor=west) +(.3,-.3) coordinate (sso) {};
+\path (node cs:name=sb,anchor=west) +(-.2-5*.4,0) coordinate (sbi) {};
+\draw[->] (sso) -- (sbi);
+\path (node cs:name=sb,anchor=west) +(-.2-2*.4,0) coordinate (sbo) {};
+\path (node cs:name=to,anchor=west) +(.3,.3) coordinate (toi) {};
+\draw[->] (sbo) -- (toi);
+\path (node cs:name=to,anchor=west) +(.3,-.3) coordinate (too) {};
+\path (node cs:name=io,anchor=west) +(.3,.3) coordinate (ioi) {};
+\draw[->] (too) -- (ioi);
+\path (node cs:name=io,anchor=west) +(.3,-.3) coordinate (ioo) {};
+\path (node cs:name=eo,anchor=west) +(.3,.3) coordinate (eoi) {};
+\draw[->] (ioo) -- (eoi);
+\path (node cs:name=eo,anchor=west) +(.3,-.3) coordinate (eoo) {};
+\path (node cs:name=sq,anchor=west) +(-.2-5*.4,0) coordinate (sqi) {};
+\draw[->] (eoo) -- (sqi);
+\path (node cs:name=sq,anchor=west) +(-.2,0) coordinate (sqo) {};
+\path (node cs:name=is,anchor=west) +(.3,.3) coordinate (isi) {};
+\draw[->] (sqo) -- (isi);
+\path (node cs:name=is,anchor=west) +(.3,-.3) coordinate (iso) {};
+\path (node cs:name=ns,anchor=west) +(.3,.3) coordinate (nsi) {};
+\draw[->] (iso) -- (nsi);
+
+\draw[thick] (wro -| 0,0) ++(0,-.3) -- +(11,0) node (context) {};
 \node [below left] at (context) {Kernel};
 \node [above left] at (context) {User Land};
 \end{tikzpicture}
