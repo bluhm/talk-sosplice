@@ -381,7 +381,7 @@
     node (sr) [right] {soreceive()} ++(0,.8)
     node (ur) [right] {uiomove()} ++(0,.8)
     node (co) [right,red] {copyout()} ++(0,1.2)
-    node (rd) [right] {read()} ++(5,0)
+    node (rd) [right] {read()} ++(4,0)
     node (wr) [right] {write()} ++(0,-1.2)
     node (ci) [right,red] {copyin()} ++(0,-.8)
     node (us) [right] {uiomove()} ++(0,-.8)
@@ -391,22 +391,45 @@
     rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(0,-.2)
     node (sb) [right] {so\_snd} ++(-1.3,-.8)
     node (to) [right] {tcp\_output()};
-\draw[->] (node cs:name=ti,anchor=west) ++(.3,-.5) -- ++(0,.2);
-\draw[->] (node cs:name=ti,anchor=west) ++(1.1,.3) -- ++(0,.5);
-\draw[->] (node cs:name=rb,anchor=west) ++(-.2,0) -- ++(0,.5);
-\draw[->] (node cs:name=sr,anchor=west) ++(.3,.3) -- ++(0,.2);
-\draw[->] (node cs:name=ur,anchor=west) ++(.3,.3) -- ++(0,.2);
-\draw[->] (node cs:name=co,anchor=west) ++(.3,.3) -- ++(0,.6);
+
+\path (node cs:name=ti,anchor=west) +(.3,-.3) coordinate (tii) {};
+\draw[->] (tii) +(0,-.3) -- (tii);
+\path (node cs:name=ti,anchor=west) +(1.1,.3) coordinate (tio) {};
+\path (node cs:name=rb,anchor=west) +(-.2-3*.4,0) coordinate (rbi) {};
+\draw[->] (tio) -- (rbi);
+\path (node cs:name=rb,anchor=west) +(-.2,0) coordinate (rbo) {};
+\path (node cs:name=sr,anchor=west) +(.3,-.3) coordinate (sri) {};
+\draw[->] (rbo) -- (sri);
+\path (node cs:name=sr,anchor=west) +(.3,.3) coordinate (sro) {};
+\path (node cs:name=ur,anchor=west) +(.3,-.3) coordinate (uri) {};
+\draw[->] (sro) -- (uri);
+\path (node cs:name=ur,anchor=west) +(.3,.3) coordinate (uro) {};
+\path (node cs:name=co,anchor=west) +(.3,-.3) coordinate (coi) {};
+\draw[->] (uro) -- (coi);
+\path (node cs:name=co,anchor=west) +(.3,.3) coordinate (coo) {};
+\path (node cs:name=rd,anchor=west) +(.3,-.3) coordinate (rdi) {};
+\draw[->] (coo) -- (rdi);
 \draw[->] (node cs:name=rd,anchor=east) -- node [above] {Relay}
     (node cs:name=wr,anchor=west);
-\draw[->] (node cs:name=wr,anchor=west) ++(.3,-.3) -- ++(0,-.6);
-\draw[->] (node cs:name=ci,anchor=west) ++(.3,-.3) -- ++(0,-.2);
-\draw[->] (node cs:name=us,anchor=west) ++(.3,-.3) -- ++(0,-.2);
-\draw[->] (node cs:name=ss,anchor=west) ++(.3,-.3) -- ++(0,-.5);
-\draw[->] (node cs:name=sb,anchor=west) ++(-1,0) -- ++(0,-.5);
-\draw[->] (node cs:name=to,anchor=west) ++(.3,-.3) -- ++(0,-.2);
-\path (node cs:name=rd,anchor=west) ++(0,-.6) node (cs) {};
-\draw[thick] (cs -| 0,0) node (context) {} -- +(11,0);
+\path (node cs:name=wr,anchor=west) +(.3,-.3) coordinate (wro) {};
+\path (node cs:name=ci,anchor=west) +(.3,.3) coordinate (cii) {};
+\draw[->] (wro) -- (cii);
+\path (node cs:name=ci,anchor=west) +(.3,-.3) coordinate (cio) {};
+\path (node cs:name=us,anchor=west) +(.3,.3) coordinate (usi) {};
+\draw[->] (cio) -- (usi);
+\path (node cs:name=us,anchor=west) +(.3,-.3) coordinate (uso) {};
+\path (node cs:name=ss,anchor=west) +(.3,.3) coordinate (ssi) {};
+\draw[->] (uso) -- (ssi);
+\path (node cs:name=ss,anchor=west) +(.3,-.3) coordinate (sso) {};
+\path (node cs:name=sb,anchor=west) +(-.2-5*.4,0) coordinate (sbi) {};
+\draw[->] (sso) -- (sbi);
+\path (node cs:name=sb,anchor=west) +(-.2-2*.4,0) coordinate (sbo) {};
+\path (node cs:name=to,anchor=west) +(.3,.3) coordinate (toi) {};
+\draw[->] (sbo) -- (toi);
+\path (node cs:name=to,anchor=west) +(.3,-.3) coordinate (too) {};
+\draw[->] (too) -- +(0,-.3) ;
+
+\draw[thick] (rdi -| 0,0) ++(0,-.3) node (context) {} -- +(10,0);
 \end{tikzpicture}
 \end{frame}
 
@@ -466,7 +489,6 @@
 \path (node cs:name=ta,anchor=west) +(.3,-.3) coordinate (tai) {};
 \draw (node cs:name=ti,anchor=east) -| ++(1.4,.5) ++(0,.3)
     node (rw) {sorwakeup()} ++(0,.3) |- (smx);
-
 
 \draw[thick] (soi -| 0,0) ++(0,-.3) node (context) {} -- +(11,0);
 \end{tikzpicture}
