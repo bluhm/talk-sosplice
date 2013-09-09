@@ -325,7 +325,7 @@
 \begin{frame}{Process Wakeup}
 \begin{tikzpicture}
 \draw (0,0)
-    node (ti) [right] {tcp\_input()} ++(.1,.6)
+    node (ti) [right] {tcp\_input()} ++(.1,2.2)
     rectangle ++(.4,.4) rectangle ++(.4,-.4)
     rectangle ++(.4,.4) rectangle ++(.4,-.4)
     rectangle ++(.4,.4) rectangle ++(.4,-.4) ++(0,.2)
@@ -341,15 +341,23 @@
     rectangle ++(.4,-.4) rectangle ++(.4,.4)
     rectangle ++(.4,-.4) rectangle ++(.4,.4)
     rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(0,-.2)
-    node (sb) [right] {so\_snd} ++(-1.3,-.8)
-    node (to) [right] {tcp\_output()} ++(0,-.8);
-\draw[->] (node cs:name=ti,anchor=west) ++(1.1,.3) -- ++(0,.5);
+    node (sb) [right] {so\_snd} ++(-1.3,-2.4)
+    node (to) [right] {tcp\_output()};
+\draw[->]
+    (node cs:name=ti,anchor=east) -| ++(2.4,.5) ++(0,.3)
+    node (rw) [red] {sorwakeup()} ++(0,.3) |-
+    (node cs:name=sr,anchor=east);
+\draw[->]
+    (node cs:name=ti,anchor=east) -| ++(4.2,1.3) ++(0,.3)
+    node (rw) [red] {sowwakeup()} ++(0,.3) |-
+    (node cs:name=ss,anchor=west);
+\draw[->] (node cs:name=ti,anchor=west) ++(1.1,.3) -- ++(0,2.1);
 \draw[->] (node cs:name=rb,anchor=west) ++(-.2,0) -- ++(0,.5);
 \draw[->] (node cs:name=sr,anchor=west) ++(.3,.3) -- ++(0,.3);
 \path (node cs:name=ss,anchor=west) ++(.3,.1) node (ssn) {};
 \draw[->] (node cs:name=sr,anchor=west) ++(.3,.6) -| (ssn);
 \draw[->] (node cs:name=ss,anchor=west) ++(.3,-.3) -- ++(0,-.5);
-\draw[->] (node cs:name=sb,anchor=west) ++(-1,0) -- ++(0,-.5);
+\draw[->] (node cs:name=sb,anchor=west) ++(-1,0) -- ++(0,-2.1);
 \draw (node cs:name=sl,anchor=west) ++(.3,-.3) -- ++(0,-.5);
 \draw (node cs:name=fd,anchor=west) ++(.3,-.3) -- ++(0,-.2);
 \draw (node cs:name=so,anchor=west) ++(.3,-.3) -- ++(0,-.3);
