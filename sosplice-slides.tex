@@ -14,7 +14,6 @@
 
 \documentclass[14pt]{beamer}
 \usetheme{Frankfurt}
-\usepackage{alltt}
 \usepackage{tikz}
 \author{Alexander Bluhm}
 \title{Zero-Copy Socket Splicing}
@@ -631,21 +630,12 @@
 
 \begin{frame}{Simple API}
 \begin{itemize}
-
-    \item Begin splicing from source to drain
-    \begin{alltt}
+    \item Begin splicing from source to drain\\
 	setsockopt(source\_fd, SO\_SPLICE, drain\_fd)
-    \end{alltt}
-
-    \item Stop splicing
-    \begin{alltt}
+    \item Stop splicing\\
 	setsockopt(source\_fd, SO\_SPLICE, -1)
-    \end{alltt}
-
-    \item Get spliced data lenght
-    \begin{alltt}
+    \item Get spliced data lenght\\
 	getsockopt(source\_fd, SO\_SPLICE, \&length)
-    \end{alltt}
 \end{itemize}
 \end{frame}
 
@@ -751,12 +741,13 @@ struct socket {
 
 \begin{frame}{Tests}
 \begin{itemize}
-    \item /usr/src/regress/sys/kern/sosplice
+    \item /usr/src/regress/sys/kern/sosplice/
     \item 15 API tests
     \item 18 UDP tests
     \item 76 TCP tests
     \item perf/relay.c simple example
     \item BSD::Socket::Splice Perl API
+    \item 28 relayd tests
 \end{itemize}
 \end{frame}
 
@@ -765,6 +756,21 @@ struct socket {
     \item Factor 1 or 2 for TCP
     \item Factor 6 or 8 for UDP
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Documentation}
+\begin{itemize}
+    \item Manpage setsockopt(2) SO\_SPLICE
+    \item Manpage sosplice(9) somove(9)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Questions}
+\begin{center}
+\begin{tikzpicture}
+\draw [font=\fontsize{6cm}{4cm}\selectfont] node {?};
+\end{tikzpicture}
+\end{center}
 \end{frame}
 
 \end{document}
