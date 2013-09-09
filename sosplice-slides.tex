@@ -674,7 +674,7 @@ setsockopt(source_fd, SO_SPLICE, &splice)
 \begin{frame}{Unsplice}
 \begin{itemize}
     \item Dissolve socket splicing manually
-    \item read() or select() from the drain
+    \item read(2) or select(2) from the drain
     \item EOF source socket shutdown
     \item EPIPE drain socket error
     \item EFBIG maximum data length
@@ -682,6 +682,60 @@ setsockopt(source_fd, SO_SPLICE, &splice)
 \end{itemize}
 \end{frame}
 
-\section{Application}
+\section{Implementation}
+
+\begin{frame}[fragile]{Struct Socket}
+\begin{verbatim}
+struct socket {
+    ...
+    struct  socket *so_splice;
+    struct  socket *so_spliceback;
+    off_t   so_splicelen;
+    off_t   so_splicemax;
+    struct  timeval so_idletv;
+    struct  timeout so_idleto;
+    ...
+};
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{sosplice(9)}
+\begin{itemize}
+    \item Protocol must match
+    \item Sockets must be connected
+    \item Double link sockets
+    \item Move existing data
+\end{itemize}
+\end{frame}
+
+\begin{frame}{somove(9)}
+\begin{itemize}
+    \item Check for errors
+    \item Check for space
+    \item Handle maximum
+    \item Handle out of band data
+    \item Move socket buffer data
+\end{itemize}
+\end{frame}
+
+\begin{frame}{sounslice()}
+\begin{itemize}
+    \item Manual unsplice
+    \item Cannot receive
+    \item Cannot send
+    \item Maximum
+    \item Timeout
+    \item Socket closed
+\end{itemize}
+\end{frame}
+
+\begin{frame}{sorwakeup() sowwakeup()}
+\begin{itemize}
+    \item Called from tcp_input()
+    \item Source calls sorwakeup()
+    \item Drain calls sowwakeup()
+    \item Both invoke somove(9)
+\end{itemize}
+\end{frame}
 
 \end{document}
