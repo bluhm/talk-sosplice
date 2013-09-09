@@ -314,7 +314,7 @@
     rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(0,-.2)
     node (sb) [right,red] {socket send buffer, m\_next} ++(-1.3,-.8)
     node (to) [right] {tcp\_output()} ++(0,-.8)
-    node (io) [right] {ip\_ouput()} ++(0,-.8)
+    node (io) [right] {ip\_output()} ++(0,-.8)
     node (eo) [right] {ether\_output()} ++(.1,-.6)
     rectangle ++(.4,-.4) rectangle ++(.4,.4)
     rectangle ++(.4,-.4) rectangle ++(.4,.4)
@@ -546,6 +546,78 @@
 \draw (node cs:name=ww,anchor=south) ++(0,-.2) node [right] {ACK};
 
 \draw[thick] (soi -| 0,0) ++(0,-.3) node (context) {} -- +(11,0);
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Layer}
+\begin{tikzpicture}
+\draw (0,0)
+    rectangle ++(.4,.4) rectangle ++(.4,-.4)
+    rectangle ++(.4,.4) rectangle ++(.4,-.4)
+    rectangle ++(.4,.4) rectangle ++(.4,-.4) ++(0,.2)
+    node (rq) [right] {ipintrq} ++(-.5-5*.4,.8)
+    node (ii) [right] {ipv4\_input()} ++(0,.8)
+    node (ti) [right] {tcp\_input()} ++(.1,.6)
+    rectangle ++(.4,.4) rectangle ++(.4,-.4)
+    rectangle ++(.4,.4) rectangle ++(.4,-.4)
+    rectangle ++(.4,.4) rectangle ++(.4,-.4) ++(0,.2)
+    node (rb) [right] {so\_rcv} ++(-.5,1.6)
+    node (sr) [right] {soreceive()} ++(0,1.2)
+    node (rd) [right] {read()} ++(5,0)
+    node (wr) [right] {write()} ++(0,-1.2)
+    node (ss) [right] {sosend()} ++(.1,-1.4)
+    rectangle ++(.4,-.4) rectangle ++(.4,.4)
+    rectangle ++(.4,-.4) rectangle ++(.4,.4)
+    rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(0,-.2)
+    node (sb) [right] {so\_snd} ++(-.3-.2-5*.4,-.8)
+    node (to) [right] {tcp\_output()} ++(0,-.8)
+    node (io) [right] {ip\_output()} ++(.1,-.6)
+    rectangle ++(.4,-.4) rectangle ++(.4,.4)
+    rectangle ++(.4,-.4) rectangle ++(.4,.4)
+    rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(0,-.2)
+    node (sq) [right] {if\_snd} ++(-.5,-.8);
+
+\path (node cs:name=rq,anchor=west) +(-.2-5*.4,0) coordinate (rqo) {};
+\path (node cs:name=ii,anchor=west) +(.3,-.3) coordinate (iii) {};
+\draw[->] (rqo) -- (iii);
+\path (node cs:name=ii,anchor=west) +(.3,.3) coordinate (iio) {};
+\path (node cs:name=ti,anchor=west) +(.3,-.3) coordinate (tii) {};
+\draw[->] (iio) -- (tii);
+\path (node cs:name=ti,anchor=west) +(.3+2*.4,.3) coordinate (tio) {};
+\path (node cs:name=rb,anchor=west) +(-.2-3*.4,0) coordinate (rbi) {};
+\draw[->] (tio) -- (rbi);
+\path (node cs:name=rb,anchor=west) +(-.2,0) coordinate (rbo) {};
+\path (node cs:name=sr,anchor=west) +(.3,-.3) coordinate (sri) {};
+\draw[->] (rbo) -- (sri);
+\path (node cs:name=sr,anchor=west) +(.3,.3) coordinate (sro) {};
+\path (node cs:name=rd,anchor=west) +(.3,-.3) coordinate (rdi) {};
+\draw[->] (sro) -- (rdi);
+\draw[->] (node cs:name=rd,anchor=east) -- node [above] {Relay}
+    (node cs:name=wr,anchor=west);
+\path (node cs:name=wr,anchor=west) +(.3,-.3) coordinate (wro) {};
+\path (node cs:name=ci,anchor=west) +(.3,.3) coordinate (cii) {};
+\path (node cs:name=ss,anchor=west) +(.3,.3) coordinate (ssi) {};
+\draw[->] (wro) -- (ssi);
+\path (node cs:name=ss,anchor=west) +(.3,-.3) coordinate (sso) {};
+\path (node cs:name=sb,anchor=west) +(-.2-5*.4,0) coordinate (sbi) {};
+\draw[->] (sso) -- (sbi);
+\path (node cs:name=sb,anchor=west) +(-.2-2*.4,0) coordinate (sbo) {};
+\path (node cs:name=to,anchor=west) +(.3+3*.4,.3) coordinate (toi) {};
+\draw[->] (sbo) -- (toi);
+\path (node cs:name=to,anchor=west) +(.3,-.3) coordinate (too) {};
+\path (node cs:name=io,anchor=west) +(.3,.3) coordinate (ioi) {};
+\draw[->] (too) -- (ioi);
+\path (node cs:name=io,anchor=west) +(.3,-.3) coordinate (ioo) {};
+\path (node cs:name=sq,anchor=west) +(-.2-5*.4,0) coordinate (sqi) {};
+\draw[->] (ioo) -- (sqi);
+
+\draw[->] (node cs:name=ii,anchor=east) -- node [above] {Forwarding}
+    (node cs:name=io,anchor=west);
+\path (sri) +(0,-.8) coordinate (srx) {};
+\path (sso) +(0,-.8) coordinate (ssx) {};
+\draw[->] (srx) -- node [above,red] {Socket Splicing} (ssx);
+
+\draw[thick] (rdi -| 0,0) ++(0,-.3) node (context) {} -- +(11,0);
 \end{tikzpicture}
 \end{frame}
 
