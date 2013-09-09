@@ -329,8 +329,8 @@
     rectangle ++(.4,.4) rectangle ++(.4,-.4) ++(0,.2)
     node (rb) [right] {so\_rcv} ++(-.5,.8)
     node (sr) [right] {soreceive()} ++(3,1.2)
-    node (so) [right] {struct socket} ++(0,.8)
-    node (fd) [right] {file descriptor} ++(-2,1.2)
+    node (so) {struct socket} ++(0,1.2)
+    node (fd) {file descriptor} ++(-2,1.2)
     node (rd) [right] {read()} ++(2,0)
     node (sl) [right] {select()} ++(2,0)
     node (wr) [right] {write()};
@@ -378,15 +378,20 @@
     node (ww) [red] {sowwakeup()} ++(0,.3) |- (ssw);
 \draw (node cs:name=ww,anchor=south) ++(0,-.2) node [right] {ACK};
 
-\draw[thick] (fd -| 0,0) ++(0,-.3) node (context) {} -- +(11,0);
+\path (fd) +(0,.6) coordinate (fdx) {};
+\path (node cs:name=fd,anchor=west) +(.3,.3) coordinate (fdo) {};
+\path (node cs:name=rd,anchor=west) +(.3,-.3) coordinate (rdi) {};
+\draw[->] (fdo) -- (fdo |- fdx) -| (rdi);
+\path (node cs:name=fd,anchor=east) +(-.3,.3) coordinate (fdi) {};
+\path (node cs:name=wr,anchor=west) +(.3,-.3) coordinate (wro) {};
+\draw[->] (wro) -- (wro |- fdx) -| (fdi);
+\path (node cs:name=sl,anchor=west) +(.3,-.3) coordinate (sli) {};
+\draw[->] (fd) +(0,+.3) -- (sli);
 
-\draw (node cs:name=sl,anchor=west) ++(.3,-.3) -- ++(0,-.5);
-\draw (node cs:name=fd,anchor=west) ++(.3,-.3) -- ++(0,-.2);
-\draw (node cs:name=so,anchor=west) ++(.3,-.3) -- ++(0,-.3);
-\draw[->] (node cs:name=wr,anchor=west) ++(.3,-.3) -- ++(0,-.3);
-\path (node cs:name=rd,anchor=west) ++(.3,-.1) node (rdn) {};
-\draw[->] (node cs:name=wr,anchor=west) ++(.3,-.6) -| (rdn);
-\path (node cs:name=fd,anchor=west) ++(0,-.4) node (cs) {};
+\path (so) +(0,.3) coordinate (soc) {};
+\path (fd) +(0,-.3) coordinate (fdc) {};
+\draw (soc) -- (fdc);
+\draw[thick] (fdc -| 0,0) ++(0,-.3) node (context) {} -- +(11,0);
 \end{tikzpicture}
 \end{frame}
 
