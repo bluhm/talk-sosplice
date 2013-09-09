@@ -341,24 +341,45 @@
     rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(0,-.2)
     node (sb) [right] {so\_snd} ++(-1.3,-2.4)
     node (to) [right] {tcp\_output()};
-\draw[->]
-    (node cs:name=ti,anchor=east) -| ++(2.4,.5) ++(0,.3)
-    node (rw) [red] {sorwakeup()} ++(0,.3) |-
-    (node cs:name=sr,anchor=east);
-\draw[->]
-    (node cs:name=ti,anchor=east) -| ++(4.2,1.3) ++(0,.3)
-    node (ww) [red] {sowwakeup()} ++(0,.3) |-
-    (node cs:name=ss,anchor=west);
+
+\path (node cs:name=ti,anchor=west) +(.3,-.3) coordinate (tii) {};
+\draw[->] (tii) +(0,-.3) -- (tii);
+\path (node cs:name=ti,anchor=west) +(1.1,.3) coordinate (tio) {};
+\path (node cs:name=rb,anchor=west) +(-.2-3*.4,0) coordinate (rbi) {};
+\draw[->] (tio) -- (rbi);
+\path (node cs:name=rb,anchor=west) +(-.2,0) coordinate (rbo) {};
+\path (node cs:name=sr,anchor=west) +(.3,-.3) coordinate (sri) {};
+\draw[->] (rbo) -- (sri);
+\path (node cs:name=sr,anchor=west) +(.3,.3) coordinate (sro) {};
+\path (so) +(0,-.6) coordinate (sox) {};
+\path (node cs:name=so,anchor=west) +(.3,-.3) coordinate (soi) {};
+\draw[->] (sro) -- (sro |- sox) -| (soi);
+
+\path (node cs:name=so,anchor=east) +(-.3,-.3) coordinate (soo) {};
+\path (node cs:name=ss,anchor=west) +(.3,.3) coordinate (ssi) {};
+\draw[->] (soo) -- (soo |- sox) -| (ssi);
+\path (node cs:name=ss,anchor=west) +(.3,-.3) coordinate (sso) {};
+\path (node cs:name=sb,anchor=west) +(-.2-5*.4,0) coordinate (sbi) {};
+\draw[->] (sso) -| (sbi);
+\path (node cs:name=sb,anchor=west) +(-.2-2*.4,0) coordinate (sbo) {};
+\path (node cs:name=to,anchor=west) +(.3,.3) coordinate (toi) {};
+\draw[->] (sbo) -- (toi);
+\path (node cs:name=to,anchor=west) +(.3,-.3) coordinate (too) {};
+\draw[->] (too) -- +(0,-.3);
+
+\path (node cs:name=ti,anchor=east) coordinate (tiw) {};
+\path (node cs:name=sr,anchor=east) coordinate (srw) {}
+    +(.4,0) coordinate (srx) {};
+\draw[->] (tiw) -- (tiw -| srx) -- ++(0,.5) ++(0,.3)
+    node (rw) [red] {sorwakeup()} ++(0,.3) |- (srw);
+\path (node cs:name=ss,anchor=west) coordinate (ssw) {}
+    +(-.4,0) coordinate (ssx) {};
+\draw[->] (tiw) -- (tiw -| ssx) -- ++(0,1.3)  ++(0,.3)
+    node (ww) [red] {sowwakeup()} ++(0,.3) |- (ssw);
 \draw (node cs:name=ww,anchor=south) ++(0,-.2) node [right] {ACK};
-\draw[->] (node cs:name=ti,anchor=west) ++(.3,-.5) -- ++(0,.2);
-\draw[->] (node cs:name=ti,anchor=west) ++(1.1,.3) -- ++(0,2.1);
-\draw[->] (node cs:name=rb,anchor=west) ++(-.2,0) -- ++(0,.5);
-\draw[->] (node cs:name=sr,anchor=west) ++(.3,.3) -- ++(0,.3);
-\path (node cs:name=ss,anchor=west) ++(.3,.1) node (ssn) {};
-\draw[->] (node cs:name=sr,anchor=west) ++(.3,.6) -| (ssn);
-\draw[->] (node cs:name=ss,anchor=west) ++(.3,-.3) -- ++(0,-.5);
-\draw[->] (node cs:name=sb,anchor=west) ++(-1,0) -- ++(0,-2.1);
-\draw[->] (node cs:name=to,anchor=west) ++(.3,-.3) -- ++(0,-.2);
+
+\draw[thick] (fd -| 0,0) ++(0,-.3) node (context) {} -- +(11,0);
+
 \draw (node cs:name=sl,anchor=west) ++(.3,-.3) -- ++(0,-.5);
 \draw (node cs:name=fd,anchor=west) ++(.3,-.3) -- ++(0,-.2);
 \draw (node cs:name=so,anchor=west) ++(.3,-.3) -- ++(0,-.3);
@@ -366,7 +387,6 @@
 \path (node cs:name=rd,anchor=west) ++(.3,-.1) node (rdn) {};
 \draw[->] (node cs:name=wr,anchor=west) ++(.3,-.6) -| (rdn);
 \path (node cs:name=fd,anchor=west) ++(0,-.4) node (cs) {};
-\draw[thick] (cs -| 0,0) node (context) {} -- +(11,0);
 \end{tikzpicture}
 \end{frame}
 
@@ -381,7 +401,7 @@
     node (sr) [right] {soreceive()} ++(0,.8)
     node (ur) [right] {uiomove()} ++(0,.8)
     node (co) [right,red] {copyout()} ++(0,1.2)
-    node (rd) [right] {read()} ++(4,0)
+    node (rd) [right] {read()} ++(5,0)
     node (wr) [right] {write()} ++(0,-1.2)
     node (ci) [right,red] {copyin()} ++(0,-.8)
     node (us) [right] {uiomove()} ++(0,-.8)
@@ -429,7 +449,7 @@
 \path (node cs:name=to,anchor=west) +(.3,-.3) coordinate (too) {};
 \draw[->] (too) -- +(0,-.3) ;
 
-\draw[thick] (rdi -| 0,0) ++(0,-.3) node (context) {} -- +(10,0);
+\draw[thick] (rdi -| 0,0) ++(0,-.3) node (context) {} -- +(11,0);
 \end{tikzpicture}
 \end{frame}
 
@@ -478,17 +498,16 @@
 \path (too) +(0,-.2) coordinate (tx) {};
 \draw[->] (too) -- (tx);
 
-\path (node cs:name=ta,anchor=west) +(.3,-.3) coordinate (tai) {};
-\draw[->] (tx) +(0,-.2) -- (tx) -| (tai);
-\path (node cs:name=ta,anchor=west) +(.3,.3) coordinate (tao) {};
 \path (sm) +(0,-.3) coordinate (smw) {} +(0,-.5) coordinate (smx) {};
-\draw[->] (tao) -- ++(0,1)  ++(0,.3)
-    node (ww) {sowwakeup()} ++(0,.3) |- (smx) -- (smw);
-\draw (node cs:name=ww,anchor=south) ++(0,-.2) node [right] {ACK};
-
 \path (node cs:name=ta,anchor=west) +(.3,-.3) coordinate (tai) {};
 \draw (node cs:name=ti,anchor=east) -| ++(1.4,.5) ++(0,.3)
     node (rw) {sorwakeup()} ++(0,.3) |- (smx);
+\path (node cs:name=ta,anchor=west) +(.3,-.3) coordinate (tai) {};
+\draw[->] (tx) +(0,-.2) -- (tx) -| (tai);
+\path (node cs:name=ta,anchor=west) +(.3,.3) coordinate (tao) {};
+\draw[->] (tao) -- ++(0,1)  ++(0,.3)
+    node (ww) {sowwakeup()} ++(0,.3) |- (smx) -- (smw);
+\draw (node cs:name=ww,anchor=south) ++(0,-.2) node [right] {ACK};
 
 \draw[thick] (soi -| 0,0) ++(0,-.3) node (context) {} -- +(11,0);
 \end{tikzpicture}
