@@ -369,6 +369,46 @@
 \end{tikzpicture}
 \end{frame}
 
+\begin{frame}{Copy Data}
+\begin{tikzpicture}
+\draw (0,0)
+    node (ti) [right] {tcp\_input()} ++(.1,.6)
+    rectangle ++(.4,.4) rectangle ++(.4,-.4)
+    rectangle ++(.4,.4) rectangle ++(.4,-.4)
+    rectangle ++(.4,.4) rectangle ++(.4,-.4) ++(0,.2)
+    node (rb) [right] {so\_rcv} ++(-.5,.8)
+    node (sr) [right] {soreceive()} ++(0,.8)
+    node (ur) [right] {uiomove()} ++(0,.8)
+    node (co) [right,red] {copyout()} ++(0,1.2)
+    node (rd) [right] {read()} ++(5,0)
+    node (wr) [right] {write()} ++(0,-1.2)
+    node (ci) [right,red] {copyin()} ++(0,-.8)
+    node (us) [right] {uiomove()} ++(0,-.8)
+    node (ss) [right] {sosend()} ++(.1,-.6)
+    rectangle ++(.4,-.4) rectangle ++(.4,.4)
+    rectangle ++(.4,-.4) rectangle ++(.4,.4)
+    rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(0,-.2)
+    node (sb) [right] {so\_snd} ++(-1.3,-.8)
+    node (to) [right] {tcp\_output()};
+\draw[->] (node cs:name=ti,anchor=west) ++(.3,-.5) -- ++(0,.2);
+\draw[->] (node cs:name=ti,anchor=west) ++(1.1,.3) -- ++(0,.5);
+\draw[->] (node cs:name=rb,anchor=west) ++(-.2,0) -- ++(0,.5);
+\draw[->] (node cs:name=sr,anchor=west) ++(.3,.3) -- ++(0,.2);
+\draw[->] (node cs:name=ur,anchor=west) ++(.3,.3) -- ++(0,.2);
+\draw[->] (node cs:name=co,anchor=west) ++(.3,.3) -- ++(0,.6);
+\draw[->] (node cs:name=rd,anchor=east) -- node [above] {Relay}
+    (node cs:name=wr,anchor=west);
+\draw[->] (node cs:name=wr,anchor=west) ++(.3,-.3) -- ++(0,-.6);
+\draw[->] (node cs:name=ci,anchor=west) ++(.3,-.3) -- ++(0,-.2);
+\draw[->] (node cs:name=us,anchor=west) ++(.3,-.3) -- ++(0,-.2);
+\draw[->] (node cs:name=ss,anchor=west) ++(.3,-.3) -- ++(0,-.5);
+\draw[->] (node cs:name=sb,anchor=west) ++(-1,0) -- ++(0,-.5);
+\draw[->] (node cs:name=to,anchor=west) ++(.3,-.3) -- ++(0,-.2);
+\path (node cs:name=rd,anchor=west) ++(0,-.6) node (cs) {};
+\draw[thick] (cs -| 0,0) node (context) {} -- +(11,0);
+\end{tikzpicture}
+\end{frame}
+
 \section{Socket Splicing}
 
 \section{API}
