@@ -330,9 +330,9 @@
     node (rb) [right] {so\_rcv} ++(-.5,.8)
     node (sr) [right] {soreceive()} ++(3,1.2)
     node (so) {struct socket} ++(0,1.2)
-    node (fd) {file descriptor} ++(-2,1.2)
-    node (rd) [right] {read()} ++(2,0)
-    node (sl) [right] {select()} ++(2,0)
+    node (fd) {file descriptor} +(-2-.3,.8)
+    node (rd) [right] {read()} +(-.3,.8)
+    node (sl) [right] {select()} +(2-.3,.8)
     node (wr) [right] {write()};
 \draw (sr) ++(4,0)
     node (ss) [right] {sosend()} ++(.1,-.6)
@@ -378,13 +378,10 @@
     node (ww) [red] {sowwakeup()} ++(0,.3) |- (ssw);
 \draw (node cs:name=ww,anchor=south) ++(0,-.2) node [right] {ACK};
 
-\path (fd) +(0,.6) coordinate (fdx) {};
-\path (node cs:name=fd,anchor=west) +(.3,.3) coordinate (fdo) {};
 \path (node cs:name=rd,anchor=west) +(.3,-.3) coordinate (rdi) {};
-\draw[->] (fdo) -- (fdo |- fdx) -| (rdi);
-\path (node cs:name=fd,anchor=east) +(-.3,.3) coordinate (fdi) {};
+\draw[->] (node cs:name=fd,anchor=west) -| (rdi);
 \path (node cs:name=wr,anchor=west) +(.3,-.3) coordinate (wro) {};
-\draw[->] (wro) -- (wro |- fdx) -| (fdi);
+\draw[->] (wro) |- (node cs:name=fd,anchor=east);
 \path (node cs:name=sl,anchor=west) +(.3,-.3) coordinate (sli) {};
 \draw[->] (fd) +(0,+.3) -- (sli);
 
