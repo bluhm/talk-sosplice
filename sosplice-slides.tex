@@ -14,6 +14,7 @@
 
 \documentclass[14pt]{beamer}
 \usetheme{Frankfurt}
+\usepackage{alltt}
 \usepackage{tikz}
 \author{Alexander Bluhm}
 \title{Zero-Copy Socket Splicing}
@@ -24,6 +25,10 @@
 
 \begin{frame}
 \titlepage
+\end{frame}
+
+\begin{frame}{Agenda}
+\tableofcontents
 \end{frame}
 
 \section{Motivation}
@@ -621,11 +626,62 @@
 \end{tikzpicture}
 \end{frame}
 
-\section{API}
+\section{Interface}
+
+
+\begin{frame}{Simple API}
+\begin{itemize}
+
+    \item Begin splicing from source to drain
+    \begin{alltt}
+	setsockopt(source\_fd, SO\_SPLICE, drain\_fd)
+    \end{alltt}
+
+    \item Stop splicing
+    \begin{alltt}
+	setsockopt(source\_fd, SO\_SPLICE, -1)
+    \end{alltt}
+
+    \item Get spliced data lenght
+    \begin{alltt}
+	getsockopt(source\_fd, SO\_SPLICE, \&length)
+    \end{alltt}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Extended API}
+\begin{verbatim}
+struct splice {
+  int    sp_fd;           /* drain socket */
+  off_t  sp_max;          /* maximum bytes */
+  struct timeval sp_idle; /* idle timeout */
+};
+
+setsockopt(source_fd, SO_SPLICE, &splice)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Properties}
+\begin{itemize}
+    \item Splicing is unidirectional
+    \item Invoke it twice for bidirectional splicing
+    \item Process can turn it on and off
+    \item Works for TCP and UDP
+    \item Can mix IPv4 and IPv6 sockets
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Unsplice}
+\begin{itemize}
+    \item Dissolve socket splicing manually
+    \item read() or select() from the drain
+    \item EOF source socket shutdown
+    \item EPIPE drain socket error
+    \item EFBIG maximum data length
+    \item ETIMEDOUT idle timeout
+\end{itemize}
+\end{frame}
 
 \section{Application}
-
-IPv4 IPv6
-TCP UDP
 
 \end{document}
