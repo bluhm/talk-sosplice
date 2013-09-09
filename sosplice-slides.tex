@@ -347,8 +347,9 @@
     (node cs:name=sr,anchor=east);
 \draw[->]
     (node cs:name=ti,anchor=east) -| ++(4.2,1.3) ++(0,.3)
-    node (rw) [red] {sowwakeup()} ++(0,.3) |-
+    node (ww) [red] {sowwakeup()} ++(0,.3) |-
     (node cs:name=ss,anchor=west);
+\draw (node cs:name=ww,anchor=south) ++(0,-.2) node [right] {ACK};
 \draw[->] (node cs:name=ti,anchor=west) ++(.3,-.5) -- ++(0,.2);
 \draw[->] (node cs:name=ti,anchor=west) ++(1.1,.3) -- ++(0,2.1);
 \draw[->] (node cs:name=rb,anchor=west) ++(-.2,0) -- ++(0,.5);
@@ -410,6 +411,66 @@
 \end{frame}
 
 \section{Socket Splicing}
+
+\begin{frame}{Socket Splicing}
+\begin{tikzpicture}
+\draw (0,0)
+    node (ti) [right] {tcp\_input()} ++(.1,2.2)
+    rectangle ++(.4,.4) rectangle ++(.4,-.4)
+    rectangle ++(.4,.4) rectangle ++(.4,-.4)
+    rectangle ++(.4,.4) rectangle ++(.4,-.4) ++(0,.2)
+    node (rb) [right] {so\_rcv} ++(-.5,1.2)
+    node (sm) [right] {somove()} ++(0,.8)
+    node (ss) [right] {sosplice()} ++(0,1.2)
+    node (so) [right] {setsockopt(SO\_SPLICE)};
+\draw (sm) ++(4,-1.0)
+    rectangle ++(.4,-.4) rectangle ++(.4,.4)
+    rectangle ++(.4,-.4) rectangle ++(.4,.4)
+    rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(0,-.2)
+    node (sb) [right] {so\_snd} ++(-1.3,-2.4)
+    node (to) [right] {tcp\_output()};
+\draw[->]
+    (node cs:name=ti,anchor=east) -| ++(1.4,.5) ++(0,.3)
+    node (rw) {sorwakeup()} ++(0,.3) |-
+    (node cs:name=sm,anchor=south);
+\draw[->]
+    (node cs:name=to,anchor=west)
+    node (ta) [left] {tcp\_input()}
+    (node cs:name=ta,anchor=west) ++(.3,.3) -- ++(0,1)  ++(0,.3)
+    node (ww) {sowwakeup()} ++(0,.3) |-
+    (node cs:name=sm,anchor=south);
+
+\draw (node cs:name=ww,anchor=south) ++(0,-.2) node [right] {ACK};
+
+\path (node cs:name=ti,anchor=west) +(.3,-.3) coordinate (tii) {};
+\draw[->] (tii) +(0,-.4) -- (tii);
+\path (node cs:name=ti,anchor=west) +(1.1,.3) coordinate (tio) {};
+\path (node cs:name=rb,anchor=west) +(-.2-3*.4,0) coordinate (rbi) {};
+\draw[->] (tio) -- (rbi);
+\path (node cs:name=rb,anchor=west) +(-.2,0) coordinate (rbo) {};
+\path (node cs:name=sm,anchor=west) +(.3,-.3) coordinate (smi) {};
+\draw[->] (rbo) -- (smi);
+\path (node cs:name=sm,anchor=west) +(.3,.3) coordinate (smo) {};
+\path (node cs:name=ss,anchor=west) +(.3,-.3) coordinate (ssi) {};
+\draw[->] (smo) -- (ssi);
+\path (node cs:name=ss,anchor=west) +(.3,.3) coordinate (sso) {};
+\path (node cs:name=so,anchor=west) +(.3,-.3) coordinate (soi) {};
+\draw (sso) -- (soi);
+
+\path (node cs:name=sb,anchor=west) +(-.2-5*.4,0) coordinate (sbi) {};
+\draw[->] (node cs:name=sm,anchor=east) -| (sbi);
+\path (node cs:name=sb,anchor=west) +(-.2-2*.4,0) coordinate (sbo) {};
+\path (node cs:name=to,anchor=west) +(.3,.3) coordinate (toi) {};
+\draw[->] (sbo) -- (toi);
+\path (node cs:name=to,anchor=west) +(.3,-.3) coordinate (too) {};
+\path (too) +(0,-.2) coordinate (tx) {};
+\draw[->] (too) -- (tx);
+\path (node cs:name=ta,anchor=west) +(.3,-.3) coordinate (tai) {};
+\draw[->] (tx) +(0,-.2) -- (tx) -| (tai);
+
+\draw[thick] (soi -| 0,0) ++(0,-.3) node (context) {} -- +(11,0);
+\end{tikzpicture}
+\end{frame}
 
 \section{API}
 
