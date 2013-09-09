@@ -738,4 +738,33 @@ struct socket {
 \end{itemize}
 \end{frame}
 
+\section{Applications}
+
+\begin{frame}{Relayd}
+\begin{itemize}
+    \item Plain TCP connections
+    \item HTTP connections
+    \item Filter persistent HTTP
+    \item HTTP Chunking
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tests}
+\begin{itemize}
+    \item /usr/src/regress/sys/kern/sosplice
+    \item 15 API tests
+    \item 18 UDP tests
+    \item 76 TCP tests
+    \item perf/relay.c simple example
+    \item BSD::Socket::Splice Perl API
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Performance}
+\begin{itemize}
+    \item Factor 1 or 2 for TCP
+    \item Factor 6 or 8 for UDP
+\end{itemize}
+\end{frame}
+
 \end{document}
