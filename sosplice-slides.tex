@@ -731,7 +731,7 @@ struct socket {
 
 \begin{frame}{sorwakeup() sowwakeup()}
 \begin{itemize}
-    \item Called from tcp_input()
+    \item Called from tcp\_input()
     \item Source calls sorwakeup()
     \item Drain calls sowwakeup()
     \item Both invoke somove(9)
