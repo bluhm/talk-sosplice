@@ -641,13 +641,12 @@
 \begin{frame}[fragile]{Extended API}
 \begin{verbatim}
 struct splice {
-  int    sp_fd;           /* drain socket */
-  off_t  sp_max;          /* maximum bytes */
-  struct timeval sp_idle; /* idle timeout */
+  int    sp_fd;           /* drain */
+  off_t  sp_max;          /* maximum */
+  struct timeval sp_idle; /* timeout */
 };
-
-setsockopt(source_fd, SO_SPLICE, &splice)
 \end{verbatim}
+setsockopt(source\_fd, SO\_SPLICE, \&splice)
 \end{frame}
 
 \begin{frame}{Properties}
@@ -707,7 +706,7 @@ struct socket {
 \end{itemize}
 \end{frame}
 
-\begin{frame}{sounslice()}
+\begin{frame}{sounsplice()}
 \begin{itemize}
     \item Manual unsplice
     \item Cannot receive
