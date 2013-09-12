@@ -681,7 +681,7 @@ setsockopt(source\_fd, SO\_SPLICE, \&splice)
 \begin{frame}{Unsplice}
 \begin{itemize}
     \item Dissolve socket splicing manually
-    \item read(2) or select(2) from the drain
+    \item read(2) or select(2) from the source
     \item EOF source socket shutdown
     \item EPIPE drain socket error
     \item EFBIG maximum data length
