@@ -267,9 +267,9 @@
 \begin{tikzpicture}
 \draw
       ( 0  ,-1  ) rectangle +(3,-2)
-    ++( 0  , 0  ) node [below right] (mbuf)    {mbuf}
-    ++(  .4,- .5) node [below right] (mdata)   {m\_data}
-    ++( 0  ,- .5) node [below right] (extbuf)  {ext\_buf};
+    ++( 0  , 0  ) node [below right] (mbuf0)    {mbuf}
+    ++(  .4,- .5) node [below right] (mdata0)   {m\_data}
+    ++( 0  ,- .5) node [below right] (extbuf0)  {ext\_buf};
 
 \draw
       ( 0  ,-4  ) rectangle +(3,-2)
@@ -286,10 +286,10 @@
     ++( 0  ,- .5) node [below right] {udp header}
     ++( 0  ,- .5) node [below right] {payload}
       ( 6  ,-5.7) -- +(3,0);
-\draw[->,rounded corners=10,thick,red]
-    (mdata  -| 3,0) -| (4,-.7) -- (6,-.7);
-\draw[->,rounded corners=10,thick,red]
-    (extbuf -| 3,0) -| (5,0) -- (6,0);
+\draw[->,rounded corners=10]
+    (mdata0  -| 3,0) -| (4,-.7) -- (6,-.7);
+\draw[->,rounded corners=10]
+    (extbuf0 -| 3,0) -| (5,0) -- (6,0);
 \draw[->,rounded corners=10,thick,red]
     (mdata1  -| 3,0) -| (4,-.7) -- (6,-.7);
 \draw[->,rounded corners=10,thick,red]
