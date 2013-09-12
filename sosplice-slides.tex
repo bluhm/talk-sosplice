@@ -111,10 +111,10 @@
 \draw
       ( 0  , 0  ) rectangle +(3,-7)
     ++( 0  , 0  ) node [below right] (mbuf)    {mbuf}
-    ++(  .5,- .5) node [below right]           {m\_hdr}
-    ++(  .5,- .5) node [below right] (mdata)   {m\_data}
+    ++(  .2,- .5) node [below right]           {m\_hdr}
+    ++(  .2,- .5) node [below right] (mdata)   {m\_data}
     ++( 0  ,- .5) node [below right] (mlen)    {m\_len}
-    ++(- .5,- .5) node [below right] (mdat)    {m\_dat}
+    ++(- .2,- .5) node [below right] (mdat)    {m\_dat}
       ( 0  ,-3  ) -- +(3,0)
     ++( 0  , 0  ) node [below right] {ether header}
     ++( 0  ,- .5) node [below right] {ip header}
@@ -135,13 +135,13 @@
 \draw
       ( 0  , 0  ) rectangle +(3,-7)
     ++( 0  , 0  ) node [below right] (mbuf0)    {mbuf}
-    ++(  .5,- .5) node [below right]            {m\_hdr}
-    ++(  .5,- .5) node [below right] (mnext0)   {m\_next}
+    ++(  .2,- .5) node [below right]            {m\_hdr}
+    ++(  .2,- .5) node [below right] (mnext0)   {m\_next}
     ++( 0  ,- .5) node [below right] (mdata0)   {m\_data}
     ++( 0  ,- .5) node [below right] (mlen0)    {m\_len}
-    ++(- .5,- .5) node [below right]            {m\_pkthdr}
-    ++(  .5,- .5) node [below right] (len0)     {len}
-    ++(- .5,- .5) node [below right] (mpktdat0) {m\_pktdat}
+    ++(- .2,- .5) node [below right]            {m\_pkthdr}
+    ++(  .2,- .5) node [below right] (len0)     {len}
+    ++(- .2,- .5) node [below right] (mpktdat0) {m\_pktdat}
       ( 0  ,-4.5) -- +(3,0)
     ++( 0  , 0  ) node [below right] {ether header}
     ++( 0  ,- .5) node [below right] {ip header}
@@ -159,11 +159,11 @@
 \draw
       ( 6  , 0  ) rectangle +(3,-7)
     ++( 0  , 0  ) node [below right] (mbuf)    {mbuf}
-    ++(  .5,- .5) node [below right]           {m\_hdr}
-    ++(  .5,- .5) node [below right] (mnext)   {m\_next}
+    ++(  .2,- .5) node [below right]           {m\_hdr}
+    ++(  .2,- .5) node [below right] (mnext)   {m\_next}
     ++( 0  ,- .5) node [below right] (mdata)   {m\_data}
     ++( 0  ,- .5) node [below right] (mlen)    {m\_len}
-    ++(- .5,- .5) node [below right] (mdat)    {m\_dat}
+    ++(- .2,- .5) node [below right] (mdat)    {m\_dat}
       ( 6  ,-3.5  ) -- +(3,0)
     ++( 0  , 0  ) node [below right] {payload}
       ( 6  ,-6.5) -- +(3,0);
@@ -230,14 +230,14 @@
 \begin{frame}{MBuf Cluster}
 \begin{tikzpicture}
 \draw
-      ( 0  , 0  ) rectangle +(3,-5)
+      ( 0  ,-1  ) rectangle +(3,-5)
     ++( 0  , 0  ) node [below right] (mbuf)    {mbuf}
-    ++(  .5,- .5) node [below right]           {m\_hdr}
-    ++( 0  ,- .5) node [below right] (mdata)   {m\_data}
+    ++(  .2,- .5) node [below right]           {m\_hdr}
+    ++(  .2,- .5) node [below right] (mdata)   {m\_data}
     ++( 0  ,- .5) node [below right] (mlen)    {m\_len}
-    ++(- .5,- .5) node [below right]           {m\_pkthdr}
+    ++(- .2,- .5) node [below right]           {m\_pkthdr}
     ++( 0  ,- .5) node [below right]           {m\_ext}
-    ++(  .5,- .5) node [below right] (extbuf)  {ext\_buf}
+    ++(  .2,- .5) node [below right] (extbuf)  {ext\_buf}
     ++( 0  ,- .5) node [below right] (extsize) {ext\_size};
 \path
     (mbuf    -| 3,0) node [right] {size 256}
@@ -268,13 +268,13 @@
 \draw
       ( 0  ,-1  ) rectangle +(3,-2)
     ++( 0  , 0  ) node [below right] (mbuf)    {mbuf}
-    ++(  .5,- .5) node [below right] (mdata)   {m\_data}
+    ++(  .4,- .5) node [below right] (mdata)   {m\_data}
     ++( 0  ,- .5) node [below right] (extbuf)  {ext\_buf};
 
 \draw
       ( 0  ,-4  ) rectangle +(3,-2)
     ++( 0  , 0  ) node [below right] (mbuf1)    {mbuf}
-    ++(  .5,- .5) node [below right] (mdata1)   {m\_data}
+    ++(  .4,- .5) node [below right] (mdata1)   {m\_data}
     ++( 0  ,- .5) node [below right] (extbuf1)  {ext\_buf};
 
 \draw
