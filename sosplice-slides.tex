@@ -604,12 +604,12 @@
 
 \begin{frame}{UDP Sockets}
 \begin{tikzpicture}
-\draw [fill=red] (0,0)
+\draw (0,0)
     node (ui) [right] {udp\_input()} ++(.1,.6)
     rectangle ++(.4,.4) rectangle ++(.4,-.4) ++(-.8,.4)
     rectangle ++(.4,.4) ++(-.4,0)
     rectangle ++(.4,.4) rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(0,-.2)
-    node (rb) [right] {so\_rcv} ++(-3*.4,.2)
+    node (rb) [right,red] {so\_rcv} ++(-3*.4,.2)
     rectangle ++(.4,.4) ++(-.5,.6+.8)
     node (sr) [right] {soreceive()} ++(3,-.8)
     node (sm) [right] {somove()} ++(3,.8)
