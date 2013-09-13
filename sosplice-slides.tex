@@ -466,47 +466,6 @@
 \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{UDP Buffer}
-\begin{tikzpicture}
-\draw (0,0)
-    node (ui) [right] {udp\_input()} ++(.1,.6)
-    rectangle ++(.4,.4) rectangle ++(.4,-.4) ++(-.8,.4)
-    rectangle ++(.4,.4) ++(-.4,0)
-    rectangle ++(.4,.4) rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(0,-.2)
-    node (rb) [right] {so\_rcv} ++(-3*.4,.2)
-    rectangle ++(.4,.4) ++(-.5,.6)
-    node (sr) [right] {soreceive()} ++(5,0)
-    node (ss) [right] {sosend()} ++(.1,-.6)
-    rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(-.8,-.4)
-    rectangle ++(.4,-.4) rectangle ++(.4,.4) rectangle ++(.4,.-.4) ++(0,.2)
-    node (sb) [right] {so\_snd} ++(-.5-2*.4,-.8)
-    node (to) [right] {udp\_output()};
-
-\path (node cs:name=ui,anchor=west) +(.3,-.3) coordinate (uii) {};
-\draw[->] (uii) +(0,-.3) -- (uii);
-\path (node cs:name=ui,anchor=west) +(.3,.3) coordinate (uio) {};
-\path (node cs:name=rb,anchor=west) +(-.2-2*.4,-.8) coordinate (rbi) {};
-\draw[->] (uio) -- (rbi);
-\path (node cs:name=rb,anchor=west) +(-.2-2*.4,.4) coordinate (rbo) {};
-\path (node cs:name=sr,anchor=west) +(.3,-.3) coordinate (sri) {};
-\draw[->] (rbo) -- (sri);
-\path (node cs:name=sr,anchor=west) +(.3,.3) coordinate (sro) {};
-\draw[->] (sro) -- +(0,.3);
-
-\path (node cs:name=ss,anchor=west) +(.3,.3) coordinate (ssi) {};
-\draw[->] (ssi) +(0,.3) -- (ssi);
-\path (node cs:name=ss,anchor=west) +(.3,-.3) coordinate (sso) {};
-\path (node cs:name=sb,anchor=west) +(-.2-2*.4,.4) coordinate (sbi) {};
-\draw[->] (sso) -- (sbi);
-\path (node cs:name=sb,anchor=west) +(-.2-2*.4,0) coordinate (sbo) {};
-\path (node cs:name=to,anchor=west) +(.3,.3) coordinate (toi) {};
-\draw[->] (sbo) -- (toi);
-\path (node cs:name=to,anchor=west) +(.3,-.3) coordinate (too) {};
-\draw[->] (too) -- +(0,-.3) ;
-
-\end{tikzpicture}
-\end{frame}
-
 \begin{frame}{Process Wakeup}
 \begin{tikzpicture}
 \draw (0,0)
@@ -640,6 +599,47 @@
 \draw (node cs:name=ww,anchor=south) ++(0,-.2) node [right] {ACK};
 
 \draw[thick] (soi -| 0,0) ++(0,-.3) node (context) {} -- +(11,0);
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{UDP Socket Splicing}
+\begin{tikzpicture}
+\draw (0,0)
+    node (ui) [right] {udp\_input()} ++(.1,.6)
+    rectangle ++(.4,.4) rectangle ++(.4,-.4) ++(-.8,.4)
+    rectangle ++(.4,.4) ++(-.4,0)
+    rectangle ++(.4,.4) rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(0,-.2)
+    node (rb) [right] {so\_rcv} ++(-3*.4,.2)
+    rectangle ++(.4,.4) ++(-.5,.6)
+    node (sr) [right] {soreceive()} ++(5,0)
+    node (ss) [right] {sosend()} ++(.1,-.6)
+    rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(-.8,-.4)
+    rectangle ++(.4,-.4) rectangle ++(.4,.4) rectangle ++(.4,.-.4) ++(0,.2)
+    node (sb) [right] {so\_snd} ++(-.5-2*.4,-.8)
+    node (to) [right] {udp\_output()};
+
+\path (node cs:name=ui,anchor=west) +(.3,-.3) coordinate (uii) {};
+\draw[->] (uii) +(0,-.3) -- (uii);
+\path (node cs:name=ui,anchor=west) +(.3,.3) coordinate (uio) {};
+\path (node cs:name=rb,anchor=west) +(-.2-2*.4,-.8) coordinate (rbi) {};
+\draw[->] (uio) -- (rbi);
+\path (node cs:name=rb,anchor=west) +(-.2-2*.4,.4) coordinate (rbo) {};
+\path (node cs:name=sr,anchor=west) +(.3,-.3) coordinate (sri) {};
+\draw[->] (rbo) -- (sri);
+\path (node cs:name=sr,anchor=west) +(.3,.3) coordinate (sro) {};
+\draw[->] (sro) -- +(0,.3);
+
+\path (node cs:name=ss,anchor=west) +(.3,.3) coordinate (ssi) {};
+\draw[->] (ssi) +(0,.3) -- (ssi);
+\path (node cs:name=ss,anchor=west) +(.3,-.3) coordinate (sso) {};
+\path (node cs:name=sb,anchor=west) +(-.2-2*.4,.4) coordinate (sbi) {};
+\draw[->] (sso) -- (sbi);
+\path (node cs:name=sb,anchor=west) +(-.2-2*.4,0) coordinate (sbo) {};
+\path (node cs:name=to,anchor=west) +(.3,.3) coordinate (toi) {};
+\draw[->] (sbo) -- (toi);
+\path (node cs:name=to,anchor=west) +(.3,-.3) coordinate (too) {};
+\draw[->] (too) -- +(0,-.3) ;
+
 \end{tikzpicture}
 \end{frame}
 
