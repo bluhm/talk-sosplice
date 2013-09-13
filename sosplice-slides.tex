@@ -613,11 +613,9 @@
     rectangle ++(.4,.4) ++(-.5,.6+.8)
     node (sr) [right] {soreceive()} ++(3,-.8)
     node (sm) [right] {somove()} ++(3,.8)
-    node (ss) [right] {sosend()} ++(.1,-.6-.8)
-    rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(-.8,-.4)
-    rectangle ++(.4,-.4) rectangle ++(.4,.4) rectangle ++(.4,.-.4) ++(0,.2)
-    node (sb) [right] {so\_snd} ++(-.5-2*.4,-.8-.8)
-    node (to) [right] {udp\_output()};
+    node (ss) [right] {sosend()} (node cs:name=ss,anchor=west)
+    coordinate (ssw) {} (ssw |- ui)
+    node (uo) [right] {udp\_output()};
 
 \path (node cs:name=ui,anchor=west) +(.3,-.3) coordinate (uii) {};
 \draw[->] (uii) +(0,-.3) -- (uii);
@@ -633,18 +631,15 @@
 \path (node cs:name=ss,anchor=west) +(.3,.3) coordinate (ssi) {};
 \draw[->] (ssi) +(0,.3) -- (ssi);
 \path (node cs:name=ss,anchor=west) +(.3,-.3) coordinate (sso) {};
-\path (node cs:name=sb,anchor=west) +(-.2-2*.4,.4) coordinate (sbi) {};
-\draw[->] (sso) -- (sbi);
-\path (node cs:name=sb,anchor=west) +(-.2-2*.4,0) coordinate (sbo) {};
-\path (node cs:name=to,anchor=west) +(.3,.3) coordinate (toi) {};
-\draw[->] (sbo) -- (toi);
-\path (node cs:name=to,anchor=west) +(.3,-.3) coordinate (too) {};
-\draw[->] (too) -- +(0,-.3) ;
+\path (node cs:name=uo,anchor=west) +(.3,.3) coordinate (uoi) {};
+\draw[->] (sso) -- (uoi);
+\path (node cs:name=uo,anchor=west) +(.3,-.3) coordinate (uoo) {};
+\draw[->] (uoo) -- +(0,-.3) ;
 
 \path (node cs:name=sm,anchor=west) coordinate (smi) {};
 \draw[->] (rbo |- smi) -- (smi);
 \path (node cs:name=sm,anchor=east) coordinate (smo) {};
-\draw[->] (smo) -- (smo -| sbi);
+\draw[->] (smo) -- (smo -| uoi);
 
 \end{tikzpicture}
 \end{frame}
