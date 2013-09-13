@@ -602,20 +602,21 @@
 \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{UDP Socket Splicing}
+\begin{frame}{UDP Sockets}
 \begin{tikzpicture}
-\draw (0,0)
+\draw [fill=red] (0,0)
     node (ui) [right] {udp\_input()} ++(.1,.6)
     rectangle ++(.4,.4) rectangle ++(.4,-.4) ++(-.8,.4)
     rectangle ++(.4,.4) ++(-.4,0)
     rectangle ++(.4,.4) rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(0,-.2)
     node (rb) [right] {so\_rcv} ++(-3*.4,.2)
-    rectangle ++(.4,.4) ++(-.5,.6)
-    node (sr) [right] {soreceive()} ++(5,0)
-    node (ss) [right] {sosend()} ++(.1,-.6)
+    rectangle ++(.4,.4) ++(-.5,.6+.8)
+    node (sr) [right] {soreceive()} ++(3,-.8)
+    node (sm) [right] {somove()} ++(3,.8)
+    node (ss) [right] {sosend()} ++(.1,-.6-.8)
     rectangle ++(.4,-.4) rectangle ++(.4,.4) ++(-.8,-.4)
     rectangle ++(.4,-.4) rectangle ++(.4,.4) rectangle ++(.4,.-.4) ++(0,.2)
-    node (sb) [right] {so\_snd} ++(-.5-2*.4,-.8)
+    node (sb) [right] {so\_snd} ++(-.5-2*.4,-.8-.8)
     node (to) [right] {udp\_output()};
 
 \path (node cs:name=ui,anchor=west) +(.3,-.3) coordinate (uii) {};
@@ -639,6 +640,11 @@
 \draw[->] (sbo) -- (toi);
 \path (node cs:name=to,anchor=west) +(.3,-.3) coordinate (too) {};
 \draw[->] (too) -- +(0,-.3) ;
+
+\path (node cs:name=sm,anchor=west) coordinate (smi) {};
+\draw[->] (rbo |- smi) -- (smi);
+\path (node cs:name=sm,anchor=east) coordinate (smo) {};
+\draw[->] (smo) -- (smo -| sbi);
 
 \end{tikzpicture}
 \end{frame}
